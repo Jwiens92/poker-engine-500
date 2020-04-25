@@ -1,27 +1,29 @@
-<h2>You're viewing game <%= @game.name %></h2>
+<div data-controller="game" data-game-uuid="<%= @game.uuid %>" data-game-player-uuid="<%= @player.uuid %>">
+    <h2>You're viewing game <%= @game.name %></h2>
 
-<% if @player.persisted? %>
-    <h3>Registered as player <%= @player.username %></h3>
+    <% if @player.persisted? %>
+        <h3>Registered as player <%= @player.username %></h3>
 
-    <% if @other_players.length %>
-        <p>There are <%= @other_players.length %> other players in the game.</p>
+        <% if @other_players.length %>
+            <p>There are <%= @other_players.length %> other players in the game.</p>
 
-        <ul>
-            <% @other_players.each do |player| %>
-                <li><%= player.username %></li>
-            <% end %>
-        </ul>
+            <ul data-action="click->game#reload_players reload:players@document->game#reload_players">
+                <% @other_players.each do |player| %>
+                    <li><%= player.username %></li>
+                <% end %>
+            </ul>
+        <% end %>
+    <% end%>
+
+    <% unless @player.persisted? %>
+        <p>Looks like you haven't registered yet. Pick a username to sign up.</p>
+
+        <%= form_with model: @player do |f| %>
+            <%= hidden_field_tag  :game_uuid, @game.uuid %>
+
+            <%= f.label :username %>
+            <%= f.text_field :username %>
+            <%= f.submit "Register" %>
+        <% end %>
     <% end %>
-<% end%>
-
-<% unless @player.persisted? %>
-    <p>Looks like you haven't registered yet. Pick a username to sign up.</p>
-
-    <%= form_with model: @player do |f| %>
-        <%= hidden_field_tag :game_uuid, @game.uuid %>
-
-        <%= f.label :username %>
-        <%= f.text_field :username %>
-        <%= f.submit "Register" %>
-    <% end %>
-<% end %>
+</div>
