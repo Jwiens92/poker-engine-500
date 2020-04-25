@@ -14,6 +14,12 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.find_by(uuid: params[:uuid])
+
+    if(player_uuid = session[:player_uuid])
+      @player = Player.find_by(uuid: player_uuid)
+    else
+      @player = Player.new
+    end
   end
 
   def edit

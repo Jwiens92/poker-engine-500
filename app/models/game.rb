@@ -5,6 +5,8 @@ class Game < ApplicationRecord
 
   before_create :set_uuid
 
+  has_and_belongs_to_many :players
+
   # Use the :uuid attribute for routing
   def to_param
     uuid

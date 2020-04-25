@@ -3,4 +3,5 @@ Rails.application.routes.draw do
   root "pages#home"
 
   resources :games, param: :uuid
+  resources :players, only: [:create]
 end
