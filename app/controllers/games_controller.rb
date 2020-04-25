@@ -13,10 +13,12 @@ class GamesController < ApplicationController
   end
 
   def show
-    @game = Game.find_by(uuid: params[:uuid])
+    @game = Game.includes(:players).find_by(uuid: params[:uuid])
 
     if(player_uuid = session[:player_uuid])
       @player = Player.find_by(uuid: player_uuid)
+
+      @other_players = @game.players.reject { |player| player.id == @player.id }
     else
       @player = Player.new
     end

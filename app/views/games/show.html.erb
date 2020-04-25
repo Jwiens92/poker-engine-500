@@ -2,6 +2,16 @@
 
 <% if @player.persisted? %>
     <h3>Registered as player <%= @player.username %></h3>
+
+    <% if @other_players.length %>
+        <p>There are <%= @other_players.length %> other players in the game.</p>
+
+        <ul>
+            <% @other_players.each do |player| %>
+                <li><%= player.username %></li>
+            <% end %>
+        </ul>
+    <% end %>
 <% end%>
 
 <% unless @player.persisted? %>
