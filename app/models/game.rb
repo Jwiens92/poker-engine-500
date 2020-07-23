@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: games
+#
+#  id         :bigint           not null, primary key
+#  name       :string(255)      default(""), not null
+#  uuid       :string(255)      not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
 require 'securerandom'
 
 class Game < ApplicationRecord

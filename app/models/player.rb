@@ -1,3 +1,13 @@
+# == Schema Information
+#
+# Table name: players
+#
+#  id         :bigint           not null, primary key
+#  uuid       :string(255)
+#  username   :string(255)
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
 class Player < ApplicationRecord
   validates :username, presence: true, uniqueness: true
 
