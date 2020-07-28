@@ -1,6 +1,6 @@
 class GamesController < ApplicationController
   def index
-    # TODO - List the games the user has access to
+    @games = Game.all
   end
 
   def new
@@ -13,8 +13,8 @@ class GamesController < ApplicationController
   end
 
   def show
+    
     @game = Game.includes(:players).find_by(uuid: params[:uuid])
-
     if(player_uuid = session[:player_uuid])
       @player = Player.find_by(uuid: player_uuid)
 

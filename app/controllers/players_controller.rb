@@ -14,6 +14,7 @@ class PlayersController < ApplicationController
     player.save!
 
     # TODO: Pull out player session management into a service
+    binding.pry
     session[:player_uuid] = player.uuid
 
     dispatch_player_joined_notification
